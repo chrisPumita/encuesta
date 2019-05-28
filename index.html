@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ENCUESTA</title>
+	<meta charset="UTF-8">
+	<style type="text/css">
+		body{
+			font-family: 'Lucida Console';
+		}
+		.formulario{
+    		    display: grid;
+			    width: 50%;
+			    margin-left: 25%;
+			    margin-right: 25%;
+		}
+		p,h1{
+			    text-align: center;
+			    font-family: 'Century Gothic';
+		}
+
+		.personal{
+			    display: grid;
+		}
+
+		.sexoOpt, .btns{
+		    display: flex;
+		    padding-bottom: 15px;
+		    position: relative;
+		}
+
+		.optGusto{
+			display: inline;
+		}
+
+		.boton{
+			width: 50%;
+		    height: 50px;
+		    font-size: 15px;
+		}
+
+		.boton:hover{
+			    background: chocolate;
+    			color: cornsilk;
+    			cursor: pointer;
+		}
+
+		.acceso{
+			width: 5%;		
+		    position: absolute;
+		    right: 10px;
+		    cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		//datos personales
+		var nombre, aPaterno, aMaterno, edad, sexo, tel, mail;
+		//datos escolares
+		var gradoEst, gustoEst;
+		//datos profesionales
+		var ocupacion, gustoOcup,textoEnorme;
+		//datos de gustos
+		deporte 	= new Boolean(); 
+		lectura 	= new Boolean(); 
+		musica 		= new Boolean(); 
+		dibujo 		= new Boolean(); 
+		canto 		= new Boolean(); 
+		estudio 	= new Boolean(); 
+		viajar 		= new Boolean(); 
+
+		function mostrarDatos() {
+				document.write("<h3>DATOS PERSONALES</h3><br>");
+				document.write("<label><strong> NOMBRE: </strong> "+nombre+" </label><br>");
+				document.write("<label><strong> APELLIDO PATERNO: </strong> "+aPaterno+" </label><br>");
+				document.write("<label><strong> APELLIDO MATERNO: </strong> "+aMaterno+" </label><br>");
+				document.write("<label><strong> EDAD: </strong> "+edad+" </label><br>");
+				document.write("<label><strong> SEXO: </strong> "+sexo+" </label><br>");
+				document.write("<label><strong> TELEFONO: </strong> "+tel+" </label><br>");
+				document.write("<label><strong> EMAIL: </strong> "+mail+" </label><br>");
+				
+				document.write("<h3>DATOS ESCOLARES</h3><br>");
+				document.write("<label><strong> GRADO DE ESTUDIOS: </strong> "+gradoEst+" </label><br>");
+				document.write("<label><strong> GUSTOS DE ESTUDIOS:</strong></label> ");
+				for (var i = 0; i < gustoEst; i++)
+					document.write("❤");
+				document.write(" <br><h3>DATOS PROFESIONALES</h3><br>");
+				document.write("<label><strong> OCUPACION DE TRABAJO: </strong> "+ocupacion+" </label><br>");
+				document.write("<label><strong> GUSTOS DE POR SU EMPLEO:</strong></label> ");
+				for (var i = 0; i < gustoOcup; i++)
+					document.write("❤");
+				document.write(" <br><h3>GUSTOS Y PASATIEMPOS</h3><ul>");
+				if (deporte)
+					document.write("<ol>DEPORTE </ol><br>");
+				if (lectura)
+					document.write("<ol>LECTURA </ol><br>");
+				if (musica)
+					document.write("<ol>MUSICA </ol><br>");
+				if (dibujo)
+					document.write("<ol>DIBUJO </ol><br>");
+				if (canto)
+					document.write("<ol>CANTO </ol><br>");
+				if (estudio)
+					document.write("<ol>ESTUDIO </ol><br>");
+				if (viajar)
+					document.write("<ol>VIAJAR </ol><br>");
+				document.write("</ul><label><strong> COMENATARIO: </strong></label> <br> "+textoEnorme+"<br>");
+				document.write("<a href='index.html'><input class='boton' type='button' value='TERMINAR'></a>");
+		}
+
+		function enviar() {
+		//	verificaDatos() ? mostrarDatos():alert("Faltan datos por completar");
+		if	(!verificaDatos())
+			alert("Faltan datos por completar");
+		else
+			document.formulario.submit() 
+		}
+
+		function verificaDatos() {
+			var correct = true;
+			var success = true;
+			if (!personales() || !escolares() || !profesionales() || !gustos())
+				correct = false;
+			return correct;
+		}
+
+		function personales() {
+			var correct = true;
+			//recuperando nombre
+			var n = document.getElementById('txtName').value;
+			var app = document.getElementById('txtApP').value;
+			var apm = document.getElementById('txtApM').value;
+			if (n!="" && app!="" && apm!=""){	
+				nombre = n;
+				aPaterno = app;
+				aMaterno = apm;
+			}
+			else 
+				correct = false;
+			//recuperando la edad
+			var edadSelect = document.getElementById('edad');
+			edad = edadSelect.options[edadSelect.selectedIndex].text;
+			//verificando el sexo
+			if (document.getElementById('h').checked)
+				sexo = 'HOMBRE';
+			else if (document.getElementById('m').checked)
+				sexo = "MUJER";
+			else
+				correct = false;
+			//Recuperando telefono e email
+			var t = document.getElementById('txtTel').value;
+			var m = document.getElementById('txtMail').value;
+			if (t!="" && m!=""){	
+				tel = t;
+				mail = m;
+			}
+			else 
+				correct = false;
+
+			return correct;
+		}
+		function escolares() {
+			var correct = true;
+			//gradoEst, gustoEst;
+			//recuperando el grado de estudios
+			var gradeSelect = document.getElementById('LISTescoladad');
+			gradoEst =	 gradeSelect.options[gradeSelect.selectedIndex].text;
+			//verificando el sexo
+			if (document.getElementById('esc1').checked)
+				gustoEst = 1;
+			else if (document.getElementById('esc2').checked)
+				gustoEst = 2;
+			else if (document.getElementById('esc3').checked)
+				gustoEst = 3;
+			else if (document.getElementById('esc4').checked)
+				gustoEst = 4;
+			else if (document.getElementById('esc5').checked)
+				gustoEst = 5;
+			else
+				correct = false;
+			return correct;
+		}
+
+		function profesionales() {
+			var correct = true;
+			//recuperandoocupacion
+			var ocu = document.getElementById('LISTocupacion');
+			ocupacion =	 ocu.options[ocu.selectedIndex].text;
+			//verificando el sexo
+			if (document.getElementById('ocu1').checked)
+				gustoOcup = 1;
+			else if (document.getElementById('ocu2').checked)
+				gustoOcup = 2;
+			else if (document.getElementById('ocu3').checked)
+				gustoOcup = 3;
+			else if (document.getElementById('ocu4').checked)
+				gustoOcup = 4;
+			else if (document.getElementById('ocu5').checked)
+				gustoOcup = 5;
+			else
+				correct = false;
+			return correct;
+		}
+
+		function gustos() {
+			var correct = true;
+			//Obtener el valor bool de los gustos seleccionados
+			deporte 	= 	document.getElementById('gusto1').checked;
+			lectura 	= 	document.getElementById('gusto2').checked;
+			musica 		= 	document.getElementById('gusto3').checked;
+			dibujo 		= 	document.getElementById('gusto4').checked;
+			canto 		= 	document.getElementById('gusto5').checked;
+			estudio 	= 	document.getElementById('gusto6').checked;
+			viajar 		= 	document.getElementById('gusto7').checked;
+
+			//Obtener El texto largo
+			var tam = document.getElementById('textoLargo').value.length;
+			//if (document.getElementById('cv').value.lenght>20)
+			if (tam<1)
+				correct = false;
+			else
+				textoEnorme = document.getElementById('textoLargo').value;
+			return correct;
+		}
+
+
+
+
+	</script>
+	<div>
+		<a href="login.html">
+			<img class="acceso" src="img/report.png" alt="Acceso al sistema de consulta">
+		</a>
+	</div>
+	<h1>DATOS PERSONALES</h1>
+	<p>
+		Por favor, llene los campos marcados con *
+		<form name="formulario" class="formulario" method="POST" action="alta.php">
+			<h3>DATOS PERSONALES</h3>
+				<label>*Nombre (s): </label>
+				<input type="text" id="txtName" name="txtName">
+				<label>*Apellido Paterno:</label>
+				<input type="text" id="txtApP" name="txtApP">
+				<label>*Apellido Materno:</label>
+				<input type="text" name="txtApM" id="txtApM">
+				<br>
+			<div class="personal">
+			<label>*Edad:</label>
+			<select name="edad" id="edad">
+				<option value="1">0 - 3 años</option>
+				<option value="2">4 - 11 años</option>
+				<option value="3">12 - 18 años</option>
+				<option value="4">19 - 60 años</option>
+				<option value="5">60 - mas años</option>
+			</select> <br>
+			<label>*Sexo:</label>
+			<div class="sexoOpt">
+				<input type="radio" value="1" id="h" name="sexo">HOMBRE<br>
+				<input type="radio" value="2" id="m" name="sexo">MUJER<br>
+			</div>
+			<label>*Teléfono:</label>
+			<input type="Tel" name="txtTel" id="txtTel">
+			<label>*Correo Electrónico:</label>
+			<input type="Email" name="txtMail" id="txtMail">
+			</div>
+			<h3>DATOS ESCOLARES</h3>
+			<label>*Ultimo Grado de Estudios:</label>
+			<select name="LISTescoladad" id="LISTescoladad">
+				<option name="grado1" id="grado1" value="1">Sin estudios</option>
+				<option name="grado2" id="grado2" value="2">Primaria</option>
+				<option name="grado3" id="grado3" value="3">Secuendaria</option>
+				<option name="grado4" id="grado4" value="4">Preparatoria / Bachillerato</option>
+				<option name="grado5" id="grado5" value="5">Univerdad</option>
+			</select> <br>
+			<label>*Del 1 al 5 que tanto le gusta su nivel de estudios:
+			</label><br>
+			<div class="optGusto">
+				<input type="radio" value="1" id="esc1" name="RadioEst">Nada<br>
+				<input type="radio" value="2" id="esc2" name="RadioEst">Poco<br>
+				<input type="radio" value="3" id="esc3" name="RadioEst">Regular<br>
+				<input type="radio" value="4" id="esc4" name="RadioEst">Mucho<br>
+				<input type="radio" value="5" id="esc5" name="RadioEst">Demaciado<br>
+			</div>
+
+			<h3>DATOS PROFESIONALES</h3>
+			<label>*Ocupación:</label>
+			<select name="LISTocupacion" id="LISTocupacion">
+				<option value="1">No trabaja</option>
+				<option value="2">Obrero</option>
+				<option value="3">Empleado</option>
+				<option value="4">Comerciante</option>
+				<option value="5">Servidor Público</option>
+				<option value="6">Areas de Ingeniria</option>
+				<option value="7">Areas de Tecnologias</option>
+				<option value="8">Areas de la Salud</option>
+				<option value="9">Areas Administrativas/Sociales</option>
+				<option value="10">Artista</option>
+				<option value="11">Empresario</option>
+			</select> <br>
+			<label>*Del 1 al 5 que tanto le gusta su ocupación:
+			</label><br>
+			<div class="optGusto">
+				<input type="radio" id="ocu1" value="1" name="RadioOcup">Nada<br>
+				<input type="radio" id="ocu2" value="2" name="RadioOcup">Poco<br>
+				<input type="radio" id="ocu3" value="3" name="RadioOcup">Regular<br>
+				<input type="radio" id="ocu4" value="4" name="RadioOcup">Mucho<br>
+				<input type="radio" id="ocu5" value="5" name="RadioOcup">Demaciado<br>
+			</div>
+			<h3>GUSTOS Y PASATIEMPOS</h3>
+			<label>Seleccione algunos pasatiempos</label> <br>
+			<div class="optGustoC">
+				<input type="checkbox" value="1" name="gusto1" id="gusto1"> El deporte <br>
+				<input type="checkbox" value="2" name="gusto2" id="gusto2"> Lectura <br>
+				<input type="checkbox" value="3" name="gusto3" id="gusto3"> La Música <br>
+				<input type="checkbox" value="4" name="gusto4" id="gusto4"> El Dibujo <br>
+				<input type="checkbox" value="5" name="gusto5" id="gusto5"> El Canto <br>
+				<input type="checkbox" value="6" name="gusto6" id="gusto6"> El Estudio <br>
+				<input type="checkbox" value="7" name="gusto7" id="gusto7"> Viajar <br>
+			</div>
+			<br>
+			<label>*Escriba algo breve de lo que mas le gustaria tener:</label>
+			<textarea name="textoLargo" id="textoLargo" rows="10" cols="50"></textarea> <br>
+			<br>
+			<div class="btns">
+				<input class="boton" type="reset" value="Limpiar todo">
+				<input class="boton" type="button" value="Enviar Encuesta" onclick="enviar()">
+			</div>
+		</form>
+	</p>
+</body>
+</html>
